@@ -98,8 +98,8 @@ class StudentsController extends Controller
     public function update(Request $request, $id)
     {
         $student = Student::findOrFail($id);
-        $student->update($request->all());
 
+        $student->update($request->all());
         return response()->json(['success' => 'Atualizado com sucesso!']);
     }
 

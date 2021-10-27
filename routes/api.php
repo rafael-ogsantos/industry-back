@@ -17,15 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/students', StudentsController::class);
-Route::post('/students/update/{id}', 'App\Http\Controllers\StudentsController@update');
-Route::post('/students/delete/{id}', 'App\Http\Controllers\StudentsController@destroy');
 
-Route::resource('/courses', CoursesController::class);
-Route::post('/courses/update/{id}', 'App\Http\Controllers\CoursesController@update');
-Route::post('/courses/delete/{id}', 'App\Http\Controllers\CoursesController@destroy');
+Route::group(['prefix' => 'students'], function () {
+    Route::resource('/', StudentsController::class);
+    Route::post('/update/{id}', 'App\Http\Controllers\StudentsController@update');
+    Route::post('/delete/{id}', 'App\Http\Controllers\StudentsController@destroy');
+});
 
-Route::resource('/enrollments', EnrollmentsController::class);
-Route::post('/enrollments/update/{id}', 'App\Http\Controllers\EnrollmentsController@update');
-Route::post('/enrollments/delete/{id}', 'App\Http\Controllers\EnrollmentsController@destroy');
+Route::group(['prefix' => 'courses'], function () {
+    Route::resource('/', CoursesController::class);
+    Route::post('/update/{id}', 'App\Http\Controllers\CoursesController@update');
+    Route::post('/delete/{id}', 'App\Http\Controllers\CoursesController@destroy');
+});
 
+Route::group(['prefix' => 'enrollments'], function () {
+    Route::resource('/', EnrollmentsController::class);
+    Route::post('/update/{id}', 'App\Http\Controllers\EnrollmentsController@update');
+    Route::post('/delete/{id}', 'App\Http\Controllers\EnrollmentsController@destroy');
+});
